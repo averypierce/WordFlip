@@ -18,6 +18,7 @@
         "In multiplayer mode, any words you both found will be cancelled out,"\
         "so remember that unique words are more valuable than common ones!"</string>
     <string name="action_settings">Settings</string>
+    <string name="instructions">How to play</string>
     <string name="hey" />
     <string name="title_activity_game">game</string>
     <string name="play">PLAY</string>

@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.avery.wordflip.InstructionsActivity"
-    android:id="@+id/screen">
+    android:id="@+id/screen"
+    android:background="#f6f6f6">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:background="#67df61">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"

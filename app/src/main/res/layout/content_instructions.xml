@@ -21,7 +21,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/instructions_one"
                 android:id="@+id/textView2"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:textColor="#000000" />
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -38,7 +39,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/instructions_two"
                 android:id="@+id/textView"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:textColor="#000000" />
 
             <Button
                 android:layout_width="wrap_content"
