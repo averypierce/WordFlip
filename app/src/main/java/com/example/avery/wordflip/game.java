@@ -1,18 +1,39 @@
 package com.example.avery.wordflip;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.EmbossMaskFilter;
+import android.graphics.MaskFilter;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.view.View.OnTouchListener;
+import android.graphics.Rect;
+import java.util.List;
 
-import java.util.Random;
+public class game extends AppCompatActivity implements View.OnTouchListener{
 
-public class game extends AppCompatActivity {
+    private int j;
+    gameTray currentShake = new gameTray();
+
+    //Drawing stuff
+    private MyDrawingView drawingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,31 +42,53 @@ public class game extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int dice[][] = {
-                {'A','S','O','H','R','M' },
-                {'Y','F','E','H','I','E' },
-               // {'J','O','B','A','Q','M' ,'u'}, // EXTRA  LETTER BECAUSE U
-                {'J','O','B','A','Q','M'},
-                {'W','E','S','O','N','D'},
-                {'F','O','R','I','B','X'},
-                {'G','U','Y','E','L','K'},
-                {'T','P','S','L','E','U'},
-                {'H','N','S','P','I','E'},
-                {'A','A','I','O','C','T'},
-                {'A','L','I','B','T','Y'},
-                {'K','U','T','O','N','D'},
-                {'S','A','C','E','L','R'},
-                {'P','E','C','A','D','M'},
-                {'W','R','L','G','U','I'},
-                {'T','E','V','I','G','N'},
-                {'V','E','Z','A','N','D'}
-        };
+        //Drawing stuff
+        drawingView = (MyDrawingView) findViewById(R.id.drawing);
+        drawingView.setOnTouchListener(this);
 
-        for(int i = 1;i>17;i++){
-            Random roll = new Random();
-
+        for(j=1;j<=16;j++){
+            int resId = getResources().getIdentifier("textView" + j, "id", getPackageName());
+            ((TextView) findViewById(resId)).setText(currentShake.getLetter(j-1));
         }
 
+    }
+
+    public void findHit(int x, int y){
+        Rect bounds = new Rect();
+        ImageButton hitbox;
+        int resId;
+
+        for(j=1;j<=16;j++){
+
+            resId = getResources().getIdentifier("hitbox" + j, "id", getPackageName());
+            hitbox = (ImageButton) findViewById(resId);
+            hitbox.getHitRect(bounds);
+
+            if(bounds.contains(x,y)){
+                TextView placeholder = (TextView) findViewById(R.id.textView17);
+                placeholder.setText(currentShake.getLetter(j-1));
+            }
+        }
+    }
+
+    public boolean onTouch(View arg0, MotionEvent event) {
+
+        float x = event.getX();
+        float y = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                findHit((int)x,(int)y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                break;
+            case MotionEvent.ACTION_UP: //PUT IN DICTIONARY AND OR COORDINATE CHECKS HERE!!!!
+
+                break;
+        }
+
+        return drawingView.onTouch(arg0,event);
     }
 
     @Override
@@ -67,8 +110,32 @@ public class game extends AppCompatActivity {
         }
     }
 
+    public void tiletap(View view){
+        Button tile = (Button) findViewById(view.getId());
+        tile.setText("X");
+    }
+
+    public void colortest(View view){
+
+        String num = (String) getResources().getResourceEntryName(view.getId());
+
+        if(num.length() > 6){
+            int n = Integer.parseInt(num.replaceAll("[\\D]", ""));
+            int resId = getResources().getIdentifier("imageView" + n, "id", getPackageName());
+            ImageView tile = (ImageView) findViewById(resId);
+            tile.setBackgroundColor(Color.parseColor("#977c54ff"));
+        }
+        else{
+            int resId = getResources().getIdentifier("imageView", "id", getPackageName());
+            ImageView tile = (ImageView) findViewById(resId);
+            tile.setBackgroundColor(Color.parseColor("#977c54ff"));
+        }
+
+    }
+
     public void showHelp(){
         Intent intent = new Intent(this,InstructionsActivity.class);
         startActivity(intent);
     }
+
 }
