@@ -13,7 +13,7 @@ public class gameTray {
     String dice[][] = {
             {"A","S","O","H","R","M" },
             {"Y","F","E","H","I","E" },
-            {"J","O","B","A","Qu","M" }, // EXTRA LETTER BECAUSE U
+            {"J","O","B","A","QU","M" }, // EXTRA LETTER BECAUSE U
             {"W","E","S","O","N","D"},
             {"F","O","R","I","B","X"},
             {"G","U","Y","E","L","K"},
@@ -43,6 +43,10 @@ public class gameTray {
 
     public String getLetter(int n){
         return gp.get(n).getLetter();
+    }
+
+    public letterCube getCube(int n){
+        return gp.get(n);
     }
 
 }

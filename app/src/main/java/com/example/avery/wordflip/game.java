@@ -2,6 +2,7 @@ package com.example.avery.wordflip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
@@ -12,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,15 +27,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnTouchListener;
 import android.graphics.Rect;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 
 public class game extends AppCompatActivity implements View.OnTouchListener{
 
     private int j;
     gameTray currentShake = new gameTray();
+    HashSet<String> dictionary = new HashSet();
 
     //Drawing stuff
     private MyDrawingView drawingView;
+
+    List<letterCube> tracedWord = new ArrayList<letterCube>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        buildDictionary();
         //Drawing stuff
         drawingView = (MyDrawingView) findViewById(R.id.drawing);
         drawingView.setOnTouchListener(this);
@@ -53,42 +70,106 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
     }
 
-    public void findHit(int x, int y){
+    public void buildDictionary(){
+        AssetManager assetManager = getAssets();
+        BufferedReader reader;
+        String word;
+
+        //dictionary.add("HEY");
+        //dictionary.add("TEA");
+        //dictionary.add("BRO");
+
+        try{
+            final InputStream file = getAssets().open("dict.txt");
+            reader = new BufferedReader(new InputStreamReader(file));
+            String line = reader.readLine();
+            while(line != null){
+
+                dictionary.add(line.toString());
+                line = reader.readLine();
+
+            }
+        } catch(IOException ioe){
+            ioe.printStackTrace();
+        }
+
+    }
+
+    public void findFirstHit(int x, int y) {
         Rect bounds = new Rect();
         ImageButton hitbox;
         int resId;
+        tracedWord.clear();
 
-        for(j=1;j<=16;j++){
+        for (j = 1; j <= 16; j++) {
 
             resId = getResources().getIdentifier("hitbox" + j, "id", getPackageName());
             hitbox = (ImageButton) findViewById(resId);
-            hitbox.getHitRect(bounds);
+            hitbox.getGlobalVisibleRect(bounds);
 
-            if(bounds.contains(x,y)){
-                TextView placeholder = (TextView) findViewById(R.id.textView17);
-                placeholder.setText(currentShake.getLetter(j-1));
+            if (bounds.contains(x, y)) {
+                tracedWord.add(currentShake.getCube(j - 1));
             }
         }
     }
 
-    public boolean onTouch(View arg0, MotionEvent event) {
+    public void middleHit(int x,int y){
+        Rect bounds = new Rect();
+        ImageButton hitbox;
+        int resId;
 
-        float x = event.getX();
-        float y = event.getY();
+        for (j = 1; j <= 16; j++) {
+
+            resId = getResources().getIdentifier("hitbox" + j, "id", getPackageName());
+            hitbox = (ImageButton) findViewById(resId);
+            hitbox.getGlobalVisibleRect(bounds);
+
+            if (bounds.contains(x, y) && !tracedWord.contains(currentShake.getCube(j-1))) {
+                tracedWord.add(currentShake.getCube(j - 1));
+
+            }
+        }
+    }
+
+    public void endingHit(){
+
+        TextView placeholder = (TextView) findViewById(R.id.textView17);
+
+        ListIterator pword = tracedWord.listIterator();
+        StringBuilder finalword = new StringBuilder();
+        letterCube temp;
+        while(pword.hasNext()){
+            temp = (letterCube) pword.next();
+            finalword.append(temp.getLetter());
+        }
+
+        placeholder.setText(finalword);
+
+        if(dictionary.contains(finalword.toString())){
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.ding);
+            mp.start();
+        }
+
+
+    }
+    public boolean onTouch(View drawing, MotionEvent event) {
+
+        float x = event.getRawX();
+        float y = event.getRawY();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                findHit((int)x,(int)y);
+                findFirstHit((int) x, (int) y);
                 break;
             case MotionEvent.ACTION_MOVE:
-
+                middleHit((int) x, (int) y);
                 break;
             case MotionEvent.ACTION_UP: //PUT IN DICTIONARY AND OR COORDINATE CHECKS HERE!!!!
-
+                endingHit();
                 break;
         }
 
-        return drawingView.onTouch(arg0,event);
+        return drawingView.onTouch(drawing,event);
     }
 
     @Override

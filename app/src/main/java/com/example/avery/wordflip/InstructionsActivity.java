@@ -54,9 +54,6 @@ public class InstructionsActivity extends AppCompatActivity {
     }
 
     public void startGame(View view){
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.ding);
-        mp.start();
-
         Intent intent = new Intent(this,game.class);
         startActivity(intent);
     }
