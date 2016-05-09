@@ -7,7 +7,6 @@ import java.util.Random;
  */
 public class letterCube{
 
-    // Data encapsulation
     private String letter;
 
     // Constructor
@@ -15,7 +14,6 @@ public class letterCube{
 
         Random roll = new Random();
         int result = roll.nextInt(6); //Pick which dice to place next
-
         letter = letterList[result];
 
     }

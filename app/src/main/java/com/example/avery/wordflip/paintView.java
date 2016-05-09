@@ -40,10 +40,9 @@ public class paintView extends View {
 
         paint.setColor(Color.rgb(0, 0, 0));
 
-
         paint.setAntiAlias(true);
         paint.setDither(true);
-       // paint.setColor(Color.parseColor("#9AFA6E"));
+
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -52,7 +51,13 @@ public class paintView extends View {
 
     //coords are in groups of x,y x,y etc
     public void makeRGLine(float[] coords,int wordlength) {
-        //float[] pts = new float[(wordlength-1)*4]; //initialize array for drawlins
+
+        paint.setStyle(Style.FILL);//greed
+        paint.setColor(Color.rgb(0, 0, 0));
+
+        ///Must Fix Coordinate Discrepencies first between global/local///
+
+        //float[] pts = new float[(wordlength)*4]; //initialize array for drawlines
 
         /*for(int i = 0;i<coords.length;i = i+2){
 
@@ -72,11 +77,6 @@ public class paintView extends View {
       //  pts[4] = coords[4];
        // pts[5] = coords[5];
 
-        paint.setStyle(Style.FILL);//greed
-        paint.setColor(Color.rgb(0, 0, 0));
-
-        //ListIterator coordinates = coords.listIterator();
-        //float centerX = canvas.getWidth() / 2;
     }
 
     public void rgshow(boolean valid){
@@ -93,10 +93,7 @@ public class paintView extends View {
     public void onDraw (Canvas canvas) {
         //INITIALIZE THE CENTER OF THE Cubes
         float centerX = canvas.getWidth() / 2;
-        float centerY = canvas.getHeight() / 2;
-
-        paint.setStyle(Style.FILL);//greed
-
+        paint.setStyle(Style.FILL);
         canvas.drawLine(centerX-100,0,centerX+100,0,paint);
         invalidate();
 

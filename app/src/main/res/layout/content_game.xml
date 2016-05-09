@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.avery.wordflip.game"
     tools:showIn="@layout/activity_game"
-    android:background="#dadada">
+    android:background="#ffffff">
 
 
     <LinearLayout
@@ -912,7 +912,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="false"
         android:layout_alignTop="@+id/linearLayout"
-        android:layout_alignBottom="@+id/linearLayout4">
+        android:layout_alignBottom="@+id/linearLayout4"
+        android:id="@+id/frameLayout">
 
         <com.example.avery.wordflip.MyDrawingView
             android:id="@+id/drawing"
@@ -927,11 +928,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="placeholder"
         android:id="@+id/textView17"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:editable="false" />
+        android:editable="false"
+        android:textSize="30sp" />
 
     <com.example.avery.wordflip.paintView
         android:layout_width="wrap_content"
@@ -939,5 +940,25 @@
         android:id="@+id/paintviewr"
         android:layout_alignBottom="@+id/linearLayout4"
         android:layout_below="@+id/textView17" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/score"
+        android:id="@+id/textView18"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="15dp"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/score"
+        android:layout_alignTop="@+id/textView18"
+        android:layout_toEndOf="@+id/textView18"
+        android:textSize="25sp" />
 
 </RelativeLayout>

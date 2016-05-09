@@ -1,18 +1,7 @@
 package com.example.avery.wordflip;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.EmbossMaskFilter;
-import android.graphics.MaskFilter;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,30 +14,30 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.View.OnTouchListener;
 import android.graphics.Rect;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 
+/* Avery VanKirk
+ * Tile Sprites and Sound Effects by me */
+
 public class game extends AppCompatActivity implements View.OnTouchListener{
 
     private int j;
+    private int score = 0;
     gameTray currentShake = new gameTray();
     HashSet<String> dictionary = new HashSet();
+    HashSet<String> foundWords = new HashSet<>();
 
     //Drawing stuff
     private MyDrawingView drawingView;
-    private paintView paintview1; //needs inittialize
+    private paintView paintview1;
 
     List<letterCube> tracedWord = new ArrayList<letterCube>();
 
@@ -74,9 +63,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
     }
 
     public void buildDictionary(){
-        AssetManager assetManager = getAssets();
         BufferedReader reader;
-        String word;
 
         try{
             final InputStream file = getAssets().open("dict.txt");
@@ -147,10 +134,34 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
         placeholder.setText(finalword);
 
-        if(dictionary.contains(finalword.toString())){
+        if(dictionary.contains(finalword.toString()) && !foundWords.contains(finalword.toString())){
+
+            foundWords.add(finalword.toString());
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.ding);
             mp.start();
             validWord = true;
+
+            if(wordLength == 3 || wordLength == 4){
+                score = score + 1;
+            }
+            else if(wordLength == 5){
+                score = score + 2;
+            }
+            else if(wordLength == 5){
+                score = score + 2;
+            }
+            else if(wordLength == 6){
+                score = score + 3;
+            }
+            else if(wordLength == 7){
+                score = score + 5;
+            }
+            else if(wordLength >= 8){
+                score = score + 11;
+            }
+
+            ((TextView) findViewById(R.id.score)).setText(String.valueOf(score));
+
         }
         else{
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
@@ -162,7 +173,8 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         drawingView.reset(); //test weith function with no parameters
 
         //COORDINATES NOT WORKING!!! because I need them to be relative to screen, but drawlines()
-        //is relative to layouy
+        //is relative to the view or its parent. This is supposed to generate a nice straight red or green line
+        //between players traced letters (Like shown in the instruction screen)
 
 
         //Generate canvas line
@@ -245,11 +257,14 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         }
     }
 
+
+    //Delete this
     public void tiletap(View view){
         Button tile = (Button) findViewById(view.getId());
         tile.setText("X");
     }
 
+    //Delete this
     public void colortest(View view){
 
         String num = (String) getResources().getResourceEntryName(view.getId());

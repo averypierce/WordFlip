@@ -16,10 +16,15 @@
         "Letters: 3-4 5 6 7 8+\n"
         "Points:  1 1 2 3 5 11\n"
         "In multiplayer mode, any words you both found will be cancelled out,"\
-        "so remember that unique words are more valuable than common ones!"</string>
+        "so remember that unique words are more valuable than common ones!"
+        "\n\n--------\n"
+        "Notes for 412 peeps: "
+        "Game does not currently enforce tile adjacentcy rule."
+        "I'm especially interested in any feedback on artwork and sound-effects"</string>
     <string name="action_settings">Settings</string>
     <string name="instructions">How to play</string>
     <string name="hey" />
-    <string name="title_activity_game">game</string>
+    <string name="title_activity_game">WordFlip pre-alpha</string>
     <string name="play">PLAY</string>
+    <string name="score">Score:</string>
 </resources>

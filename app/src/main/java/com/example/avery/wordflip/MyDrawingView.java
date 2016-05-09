@@ -9,9 +9,11 @@ import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 
 import java.util.ArrayList;
+
+
+/* Largely Based on https://github.com/swapgo20 demo file */
 
 public class MyDrawingView extends View{
 
@@ -20,7 +22,6 @@ public class MyDrawingView extends View{
     private Paint m_Paint;
 
     private ArrayList<Pair<Path, Paint>> paths = new ArrayList<Pair<Path, Paint>>();
-    private ArrayList<Pair<Path, Paint>> undonePaths = new ArrayList<Pair<Path, Paint>>();
 
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
@@ -31,7 +32,6 @@ public class MyDrawingView extends View{
         setFocusable(true);
         setFocusableInTouchMode(true);
         setBackgroundColor(Color.TRANSPARENT);
-        //this.setOnTouchListener(this);
         onCanvasInitialization();
     }
 
@@ -118,14 +118,11 @@ public class MyDrawingView extends View{
 
     private void touch_up() {
         m_Path.lineTo(mX, mY);
-        // commit the path to our offscreen
         m_Canvas.drawPath(m_Path, m_Paint);
-        // kill this so we don't double draw
         m_Path = new Path();
         Paint newPaint = new Paint(m_Paint); // Clones the mPaint object
         paths.add(new Pair<Path, Paint>(m_Path, newPaint));
     }
-
 
     public void reset(){
         paths.clear();
