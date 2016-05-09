@@ -48,6 +48,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
     //Drawing stuff
     private MyDrawingView drawingView;
+    private paintView paintview1; //needs inittialize
 
     List<letterCube> tracedWord = new ArrayList<letterCube>();
 
@@ -61,6 +62,8 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         buildDictionary();
         //Drawing stuff
         drawingView = (MyDrawingView) findViewById(R.id.drawing);
+        paintview1 = (paintView) findViewById(R.id.paintviewr);
+
         drawingView.setOnTouchListener(this);
 
         for(j=1;j<=16;j++){
@@ -74,10 +77,6 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         AssetManager assetManager = getAssets();
         BufferedReader reader;
         String word;
-
-        //dictionary.add("HEY");
-        //dictionary.add("TEA");
-        //dictionary.add("BRO");
 
         try{
             final InputStream file = getAssets().open("dict.txt");
@@ -138,9 +137,12 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         ListIterator pword = tracedWord.listIterator();
         StringBuilder finalword = new StringBuilder();
         letterCube temp;
+        int wordLength = 0;
+        boolean validWord = false;
         while(pword.hasNext()){
             temp = (letterCube) pword.next();
             finalword.append(temp.getLetter());
+            wordLength++;
         }
 
         placeholder.setText(finalword);
@@ -148,7 +150,59 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         if(dictionary.contains(finalword.toString())){
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.ding);
             mp.start();
+            validWord = true;
         }
+        else{
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
+            mp.start();
+        }
+
+       // paintview1.blammo();
+
+        drawingView.reset(); //test weith function with no parameters
+
+        //COORDINATES NOT WORKING!!! because I need them to be relative to screen, but drawlines()
+        //is relative to layouy
+
+
+        //Generate canvas line
+        /*
+        pword = tracedWord.listIterator();
+        int i;int j; Rect bounds = new Rect();
+        ImageButton hitbox;
+        int resId;
+        float[] coords = new float[wordLength*2];
+        j = 0;
+        while(pword.hasNext()) {
+            temp = (letterCube) pword.next();
+            i = currentShake.findCubeIndex(temp);
+            i++;
+            resId = getResources().getIdentifier("hitbox" + i, "id", getPackageName());
+            hitbox = (ImageButton) findViewById(resId);
+            hitbox.getGlobalVisibleRect(bounds);
+            float x = bounds.exactCenterX();
+            float y = bounds.exactCenterY();
+
+            coords[j] = x;
+            coords[j+1] = y;
+            j = j+2;
+*/
+
+            //Idea! lets just...draw a random line somewhere that works
+
+       // }
+        //resId = getResources().getIdentifier("hitbox" + 2, "id", getPackageName());
+        //hitbox = (ImageButton) findViewById(resId);
+        //int[] co = new int[2];
+        //hitbox.getLocationOnScreen(co);
+        //coords[0] = co[0];
+        //coords[1] = co[1];
+        //coords[1] = coords[1];
+
+        paintview1.rgshow(validWord);
+
+        //paintview1.makeRGLine(coords,wordLength);
+         ////////////////////////////////////////////////////
 
 
     }

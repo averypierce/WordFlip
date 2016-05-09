@@ -49,4 +49,8 @@ public class gameTray {
         return gp.get(n);
     }
 
+    public int findCubeIndex(letterCube cube){
+        return gp.indexOf(cube);
+    }
+
 }

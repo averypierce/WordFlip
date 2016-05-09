@@ -920,6 +920,7 @@
             android:layout_height="fill_parent">
 
         </com.example.avery.wordflip.MyDrawingView>
+
     </FrameLayout>
 
     <TextView
@@ -931,5 +932,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:editable="false" />
+
+    <com.example.avery.wordflip.paintView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/paintviewr"
+        android:layout_alignBottom="@+id/linearLayout4"
+        android:layout_below="@+id/textView17" />
 
 </RelativeLayout>
