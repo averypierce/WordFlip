@@ -43,12 +43,13 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
     private int progressCounter = 0;
     List<letterCube> tracedWord = new ArrayList<letterCube>();
     SharedPreferences wordFlipSaveData;
-
+    CountDownTimer myTimer;
     List<String> saveBoard = new ArrayList<String>();
-
     //Drawing stuff
     private MyDrawingView drawingView;
     private paintView paintview1;
+
+    boolean gameEnded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
         //setup timer stuff
         final ProgressBar timeBar;
-        CountDownTimer myTimer;
+        //CountDownTimer myTimer;
         timeBar=(ProgressBar)findViewById(R.id.progressBar);
         timeBar.setProgress(progressCounter);
         myTimer=new CountDownTimer(2*60*1000,1200) { //two minute timer
@@ -113,6 +114,35 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
             }
         };
         myTimer.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+        myTimer.cancel();
+        gameEnded = true;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        if(gameEnded) {
+            Intent intent = new Intent(game.this, ScoreScreenActivity.class);
+            TextView pscore = (TextView) findViewById(R.id.score);
+
+            intent.putExtra("score", pscore.getText());
+            intent.putStringArrayListExtra("gameboard", (ArrayList) saveBoard);
+
+            startActivity(intent);
+            int pastScore = wordFlipSaveData.getInt("highScore", 0);
+
+            if (score > pastScore) {
+                SharedPreferences.Editor editor = wordFlipSaveData.edit();
+                editor.putInt("highScore", score);
+                editor.apply();
+            }
+            finish();
+        }
     }
 
    /* public void reset(View view){

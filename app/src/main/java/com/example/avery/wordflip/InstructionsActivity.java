@@ -46,7 +46,7 @@ public class InstructionsActivity extends AppCompatActivity {
     public void startGame(View view){
         Intent intent = new Intent(this,game.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void howToPlay(View view){
