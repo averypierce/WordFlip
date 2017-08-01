@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.avery.wordflip.game"
     tools:showIn="@layout/activity_game"
-    android:background="#ffffff">
+    android:background="#f5f5f5">
 
 
     <LinearLayout
@@ -935,11 +935,12 @@
         android:textSize="30sp" />
 
     <com.example.avery.wordflip.paintView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/paintviewr"
         android:layout_alignBottom="@+id/linearLayout4"
-        android:layout_below="@+id/textView17" />
+        android:layout_below="@+id/textView17"
+        android:layout_alignEnd="@+id/linearLayout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -953,12 +954,22 @@
         android:textSize="25sp" />
 
     <TextView
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/score"
         android:layout_alignTop="@+id/textView18"
         android:layout_toEndOf="@+id/textView18"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="25sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/score"
+        android:layout_centerHorizontal="true"
+        android:max="100"
+        android:progress="0" />
 
 </RelativeLayout>

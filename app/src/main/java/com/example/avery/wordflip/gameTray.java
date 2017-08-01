@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class gameTray {
 
-
+    List<letterCube> gp = new ArrayList<letterCube>();
     String dice[][] = {
-            {"A","S","O","H","R","M" },
-            {"Y","F","E","H","I","E" },
-            {"J","O","B","A","QU","M" }, // EXTRA LETTER BECAUSE U
+            {"A","S","O","H","R","M"},
+            {"Y","F","E","H","I","E"},
+            {"J","O","B","A","QU","M"},
             {"W","E","S","O","N","D"},
             {"F","O","R","I","B","X"},
             {"G","U","Y","E","L","K"},
@@ -29,16 +29,30 @@ public class gameTray {
             {"V","E","Z","A","N","D"}
     };
 
-    List<letterCube> gp = new ArrayList<letterCube>();
 
     public gameTray(){
-
         for(int i = 0;i<16;i++){
             gp.add(new letterCube(dice[i]));
         }
+        buildBoard(gp);
+    }
 
+    public gameTray(ArrayList<String> board){
+        for(int i = 0;i<16;i++){
+            gp.add(new letterCube(board.get(i)));
+        }
+        buildBoard(gp);
+    }
+
+    private void buildBoard(List<letterCube> gp){
         Collections.shuffle(gp);
-        Collections.shuffle(gp); //twice cant be worse, eh?
+        int count = 0;
+        for(int i = 0;i<4;i++){
+            for(int j = 0;j<4;j++) {
+                gp.get(count).setCoords(i,j);
+                count = count + 1;
+            }
+        }
     }
 
     public String getLetter(int n){
