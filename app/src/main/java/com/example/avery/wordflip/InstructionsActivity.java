@@ -62,5 +62,20 @@ public class InstructionsActivity extends AppCompatActivity {
         Intent intent = new Intent(this,CustomWordActivity.class);
         startActivity(intent);
         //finish();
+<<<<<<< HEAD
+=======
+    }
+
+    public void howToPlay(View view){
+        Intent intent = new Intent(this,HowToPlay.class);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void editDictionary(View view){
+        Intent intent = new Intent(this,CustomWordActivity.class);
+        startActivity(intent);
+        //finish();
+>>>>>>> origin/master
     }
 }

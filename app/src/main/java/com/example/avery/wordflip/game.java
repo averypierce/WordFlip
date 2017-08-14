@@ -3,8 +3,11 @@ package com.example.avery.wordflip;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+=======
+>>>>>>> origin/master
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -28,6 +32,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+=======
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+>>>>>>> origin/master
 import android.widget.TextView;
 import android.graphics.Rect;
 import java.io.BufferedReader;
@@ -43,8 +51,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
+<<<<<<< HEAD
 import static com.example.avery.wordflip.R.id.drawing;
 
+=======
+>>>>>>> origin/master
 /* Avery VanKirk 2016*/
 
 public class game extends AppCompatActivity implements View.OnTouchListener{
@@ -67,9 +78,12 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
         Intent intent = getIntent();
         boolean rotateOn = intent.getBooleanExtra("rotateOn",false);
 
+=======
+>>>>>>> origin/master
         wordFlipSaveData = getSharedPreferences("wordFlip", Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -130,6 +144,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
                 finish();
             }
         };
+<<<<<<< HEAD
         CountDownTimer rotateTimer=new CountDownTimer(90*1000,10000) { //two minute timer
             @Override
             public void onTick(long millisUntilFinished) {
@@ -145,6 +160,9 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
 
         myTimer.start();
 
+=======
+        myTimer.start();
+>>>>>>> origin/master
     }
 
     @Override
@@ -160,6 +178,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         if(gameEnded) {
             Intent intent = new Intent(game.this, ScoreScreenActivity.class);
             TextView pscore = (TextView) findViewById(R.id.score);
+<<<<<<< HEAD
 
             intent.putExtra("score", pscore.getText());
             intent.putStringArrayListExtra("gameboard", (ArrayList) saveBoard);
@@ -167,6 +186,15 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
             startActivity(intent);
             int pastScore = wordFlipSaveData.getInt("highScore", 0);
 
+=======
+
+            intent.putExtra("score", pscore.getText());
+            intent.putStringArrayListExtra("gameboard", (ArrayList) saveBoard);
+
+            startActivity(intent);
+            int pastScore = wordFlipSaveData.getInt("highScore", 0);
+
+>>>>>>> origin/master
             if (score > pastScore) {
                 SharedPreferences.Editor editor = wordFlipSaveData.edit();
                 editor.putInt("highScore", score);
@@ -174,6 +202,7 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
             }
             finish();
         }
+<<<<<<< HEAD
     }
 
     public void rotateBoard(){
@@ -201,6 +230,15 @@ public class game extends AppCompatActivity implements View.OnTouchListener{
         ice.startAnimation(rotate);
     }
 
+=======
+    }
+
+   /* public void reset(View view){
+        foundWords.clear();
+        score = 0;
+        ((TextView) findViewById(R.id.score)).setText("0");
+    }*/
+>>>>>>> origin/master
 
     public void buildDictionary(){
 

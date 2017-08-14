@@ -56,11 +56,19 @@
         android:orientation="vertical">
 
         <Switch
+<<<<<<< HEAD
             android:id="@+id/rotate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Board Rotation"
+=======
+            android:id="@+id/switch4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Game Timer"
+>>>>>>> origin/master
             android:textSize="20sp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -82,7 +90,11 @@
             android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:layout_below="@+id/rotate"
+=======
+            android:layout_below="@+id/switch4"
+>>>>>>> origin/master
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:onClick="editDictionary"
