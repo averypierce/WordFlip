@@ -35,6 +35,8 @@ public class MyDrawingView extends View{
         onCanvasInitialization();
     }
 
+
+
     public void onCanvasInitialization() {
 
         m_Paint = new Paint();

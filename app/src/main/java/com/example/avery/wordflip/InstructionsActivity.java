@@ -1,15 +1,14 @@
 package com.example.avery.wordflip;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Switch;
 
 public class InstructionsActivity extends AppCompatActivity {
 
@@ -24,9 +23,7 @@ public class InstructionsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startGame(view);
-
+                howToPlay(view);
             }
         });
     }
@@ -41,7 +38,7 @@ public class InstructionsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if(id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -49,6 +46,21 @@ public class InstructionsActivity extends AppCompatActivity {
 
     public void startGame(View view){
         Intent intent = new Intent(this,game.class);
+        Switch s = (Switch) findViewById(R.id.rotate);
+        intent.putExtra("rotateOn",s.isChecked());
         startActivity(intent);
+
+    }
+
+    public void howToPlay(View view){
+        Intent intent = new Intent(this,HowToPlay.class);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void editDictionary(View view){
+        Intent intent = new Intent(this,CustomWordActivity.class);
+        startActivity(intent);
+        //finish();
     }
 }
